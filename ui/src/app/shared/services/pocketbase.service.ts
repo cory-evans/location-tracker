@@ -19,6 +19,10 @@ export class PocketbaseService {
     return this.client.users;
   }
 
+  get authStore() {
+    return this.client.authStore;
+  }
+
   createDeviceToken(deviceId: string) {
     return this.client.send(`/api/device/${deviceId}/token`, {
       method: 'GET',

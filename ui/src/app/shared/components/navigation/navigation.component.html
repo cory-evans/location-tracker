@@ -1,0 +1,56 @@
+<nav class="h-full bg-primary-700 flex flex-col" *ngIf="showNav">
+  <div class="flex justify-items-center shadow-sm">
+    <a routerLink="/">
+      <fa-icon
+        [fixedWidth]="true"
+        [icon]="brandIcon"
+        size="2x"
+        class="inline-block text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
+      ></fa-icon>
+    </a>
+  </div>
+  <ul class="flex flex-col flex-1 bg-primary-600">
+    <li *ngFor="let i of menuItems">
+      <a [routerLink]="i.link">
+        <fa-icon
+          [icon]="i.icon"
+          [fixedWidth]="true"
+          size="2x"
+          class="inline-block text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
+        ></fa-icon>
+      </a>
+    </li>
+
+    <div class="flex-1"></div>
+
+    <li>
+      <popper-content #accountMenu>
+        <div class="w-48">
+          <button
+            type="button"
+            (click)="userSignOut()"
+            class="block text-left w-full hover:text-gray-700 hover:bg-gray-300 px-4 py-2"
+          >
+            Sign Out
+          </button>
+          <a
+            routerLink="/settings/account"
+            class="block hover:text-gray-700 hover:bg-gray-300 px-4 py-2"
+            >My Account</a
+          >
+        </div>
+      </popper-content>
+      <fa-icon
+        role="button"
+        [icon]="accountIcon"
+        [fixedWidth]="true"
+        size="2x"
+        class="inline-block text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
+        [popper]="accountMenu"
+        [popperPlacement]="placements.RIGHT"
+        popperApplyArrowClass="hidden"
+        [popperStyles]="{ padding: 0 }"
+      ></fa-icon>
+    </li>
+  </ul>
+</nav>

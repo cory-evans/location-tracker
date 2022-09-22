@@ -1,0 +1,15 @@
+<div class="h-full flex flex-col w-64">
+  <div class="bg-white shadow z-[1] flex items-center h-16">
+    <h1 class="text-xl font-semibold ml-2">{{ title }}</h1>
+  </div>
+  <ul class="flex flex-col flex-1 bg-white divide-y">
+    <li *ngFor="let i of items">
+      <a
+        [routerLink]="i.path"
+        routerLinkActive="bg-primary-50"
+        class="flex p-2"
+        >{{ i.text }}</a
+      >
+    </li>
+  </ul>
+</div>

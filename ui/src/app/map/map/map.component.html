@@ -1,0 +1,7 @@
+<div class="flex flex-col flex-1 h-full">
+  <div class="flex-1 bg-slate-700" leaflet [leafletOptions]="options">
+    <div *ngFor="let m of markers" [leafletLayer]="m"></div>
+  </div>
+
+  <div class="h-48 bg-slate-500"></div>
+</div>

@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/labstack/echo/v5 v5.0.0-20220201181537-ed2888cfa198
-	github.com/pocketbase/pocketbase v0.7.2
+	github.com/pocketbase/pocketbase v0.7.5
 )
 
 require (

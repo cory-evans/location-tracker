@@ -1,0 +1,10 @@
+<div class="p-4 sm:max-w-4xl sm:mx-auto">
+  <form (submit)="onSubmit()" [formGroup]="form">
+    <div class="flex flex-col">
+      <label for="name">Device Name</label>
+      <input type="text" name="name" id="name" formControlName="name" />
+    </div>
+
+    <app-button variant="primary" text="Create" type="submit"></app-button>
+  </form>
+</div>
