@@ -24,15 +24,33 @@ func findDeviceByToken(app core.App, token string) (*models.Record, error) {
 	// check required claims
 	id, _ := claims["id"].(string)
 	if id == "" {
-		return nil, errors.New("missing or invalid token claims")
+		return nil, errors.New("missing or invalid token claims: id")
+	}
+	sub, _ := claims["sub"].(string)
+	if sub == "" {
+		return nil, errors.New("missing or invalid token claims: sub")
 	}
 
-	coll, err := app.Dao().FindCollectionByNameOrId("device")
+	deviceTokenColl, err := app.Dao().FindCollectionByNameOrId("device_tokens")
 	if err != nil {
 		return nil, err
 	}
 
-	device, err := app.Dao().FindRecordById(coll, id, nil)
+	tokenRecord, err := app.Dao().FindRecordById(deviceTokenColl, id, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if tokenRecord.GetStringDataValue("device") != sub {
+		return nil, errors.New("device id does not match claim")
+	}
+
+	deviceColl, err := app.Dao().FindCollectionByNameOrId("device")
+	if err != nil {
+		return nil, err
+	}
+
+	device, err := app.Dao().FindRecordById(deviceColl, sub, nil)
 	if err != nil {
 		return nil, err
 	}

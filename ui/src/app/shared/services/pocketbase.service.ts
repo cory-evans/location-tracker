@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import Pocketbase from 'pocketbase';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import Pocketbase from 'pocketbase';
 export class PocketbaseService {
   private client: Pocketbase;
   constructor() {
-    this.client = new Pocketbase('http://localhost:8090');
+    this.client = new Pocketbase(environment.pocketbase);
   }
 
   get records() {

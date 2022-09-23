@@ -13,12 +13,17 @@
           </div>
         </div>
 
-        <div class="flex mt-4">
+        <div class="flex justify-between mt-4">
           <app-button
             text="Delete"
             variant="danger"
             [icon]="deleteIcon"
             (click)="deleteDevice(d)"
+          ></app-button>
+          <app-button
+            text="Get Token"
+            variant="primary"
+            (click)="getToken(d)"
           ></app-button>
         </div>
       </li>

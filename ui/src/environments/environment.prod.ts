@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  pocketbase: 'https://gps.cory-evans.com',
 };
