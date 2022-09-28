@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker buildx build --platform linux/amd64,linux/arm64 -t pocketbase-gps:latest .
+docker buildx build --platform linux/amd64,linux/arm64 --push -t coryevans2324/location-tracker:latest .

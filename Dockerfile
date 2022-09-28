@@ -1,5 +1,5 @@
 FROM --platform=$BUILDPLATFORM golang:1.19 as builder
-ARG TARGETPLATFORM
+ARG TARGETARCH
 ARG BUILDPLATFORM
 
 WORKDIR /app
@@ -14,11 +14,7 @@ COPY devicelocation ./devicelocation/
 
 COPY main.go ./
 
-RUN case ${TARGETPLATFORM} in \
-         "linux/amd64")  GOARCH=amd64  ;; \
-         "linux/arm64")  GOARCH=arm64  ;; \
-    esac \
-&& GOOS=linux go build -o /server main.go
+RUN GOOS=linux GOARCH=$TARGETARCH go build -o /server main.go
 
 FROM alpine as runner
 
