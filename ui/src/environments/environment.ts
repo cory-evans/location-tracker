@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  pocketbase: 'http://localhost:8090',
+  pocketbase: `http://${window.location.hostname}:8090`,
 };

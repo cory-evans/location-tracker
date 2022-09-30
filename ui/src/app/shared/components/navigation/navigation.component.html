@@ -1,56 +1,61 @@
-<nav class="h-full bg-primary-700 flex flex-col" *ngIf="showNav">
-  <div class="flex justify-items-center shadow-sm">
-    <a routerLink="/">
-      <fa-icon
-        [fixedWidth]="true"
-        [icon]="brandIcon"
-        size="2x"
-        class="inline-block text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
-      ></fa-icon>
-    </a>
+<div class="absolute left-2 top-2" *ngIf="showNav">
+  <div
+    class="relative bg-slate-100/80 backdrop-blur-sm rounded-b-full rounded-t-full p-1"
+  >
+    <button class="w-8 h-8 rounded-full" (click)="navService.openMenu()">
+      <i class="bi bi-list"></i>
+    </button>
   </div>
-  <ul class="flex flex-col flex-1 bg-primary-600">
-    <li *ngFor="let i of menuItems">
-      <a [routerLink]="i.link">
-        <fa-icon
-          [icon]="i.icon"
-          [fixedWidth]="true"
-          size="2x"
-          class="inline-block text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
-        ></fa-icon>
+</div>
+
+<div
+  [ngClass]="{ 'translate-x-full': navService.isOpen }"
+  class="absolute top-0 right-full transition-transform"
+>
+  <nav class="relative bg-primary-700 h-screen flex flex-col" *ngIf="showNav">
+    <div class="flex justify-items-center shadow-sm">
+      <a
+        routerLink="/"
+        (click)="navService.closeMenu()"
+        class="flex-1 flex items-center space-x-2 text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
+      >
+        <i class="bi bi-snow"></i>
+        <span>Home</span>
       </a>
-    </li>
 
-    <div class="flex-1"></div>
+      <button
+        class="h-full px-2 text-white hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
+        type="button"
+        (click)="navService.closeMenu()"
+      >
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+    <ul class="flex flex-col flex-1 bg-primary-600">
+      <li *ngFor="let i of menuItems">
+        <a
+          [routerLink]="i.link"
+          (click)="navService.closeMenu()"
+          class="flex items-center space-x-2 text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
+        >
+          <i [class]="i.icon"></i>
 
-    <li>
-      <popper-content #accountMenu>
-        <div class="w-48">
-          <button
-            type="button"
-            (click)="userSignOut()"
-            class="block text-left w-full hover:text-gray-700 hover:bg-gray-300 px-4 py-2"
-          >
-            Sign Out
-          </button>
-          <a
-            routerLink="/settings/account"
-            class="block hover:text-gray-700 hover:bg-gray-300 px-4 py-2"
-            >My Account</a
-          >
-        </div>
-      </popper-content>
-      <fa-icon
-        role="button"
-        [icon]="accountIcon"
-        [fixedWidth]="true"
-        size="2x"
-        class="inline-block text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
-        [popper]="accountMenu"
-        [popperPlacement]="placements.RIGHT"
-        popperApplyArrowClass="hidden"
-        [popperStyles]="{ padding: 0 }"
-      ></fa-icon>
-    </li>
-  </ul>
-</nav>
+          <span>{{ i.text }}</span>
+        </a>
+      </li>
+
+      <div class="flex-1"></div>
+
+      <li>
+        <a
+          routerLink="/settings/account"
+          class="flex items-center space-x-2 text-white p-2 hover:text-primary-600 hover:bg-white hover:shadow-sm transition-colors"
+          (click)="navService.closeMenu()"
+        >
+          <i class="bi bi-person"></i>
+          <span>Account</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

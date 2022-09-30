@@ -5,9 +5,10 @@ import { SharedModule } from '../shared/shared.module';
 import { MapRoutingModule } from './map.routes';
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ControlComponent } from './control/control.component';
 
 @NgModule({
-  declarations: [MapComponent],
+  declarations: [MapComponent, ControlComponent],
   imports: [CommonModule, SharedModule, MapRoutingModule, LeafletModule],
 })
 export class MapModule {}

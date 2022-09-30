@@ -25,6 +25,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@popperjs/core": "^2.11.6",
+    "bootstrap-icons": "^1.9.1",
     "leaflet": "^1.9.0",
     "nanoid": "^4.0.0",
     "ngx-popperjs": "^14.1.1",

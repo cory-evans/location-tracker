@@ -16,6 +16,10 @@
         />
       </div>
 
+      <div *ngIf="validationError">
+        <p class="text-danger-500">{{ validationError }}</p>
+      </div>
+
       <div class="flex justify-end mt-4">
         <app-button variant="primary" text="Sign In" type="submit"></app-button>
       </div>

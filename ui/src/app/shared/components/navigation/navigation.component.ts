@@ -1,48 +1,58 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  faSnowflake,
-  faMap,
-  faUserCircle,
-} from '@fortawesome/free-regular-svg-icons';
-import { faMicrochip } from '@fortawesome/free-solid-svg-icons';
-import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { Component, HostListener } from '@angular/core';
 
-import { NgxPopperjsPlacements, NgxPopperjsTriggers } from 'ngx-popperjs';
 import { PocketbaseService } from '../../services/pocketbase.service';
+import { NavigationMenuService } from '../../services/navigation-menu.service';
 
 interface MenuItem {
   link: string | string[];
-  icon: IconDefinition;
+  icon: string;
+  text: string;
 }
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
+  host: {
+    class: 'absolute z-40 left-0 top-0 w-0 h-0',
+  },
 })
-export class NavigationComponent implements OnInit {
-  brandIcon = faSnowflake;
-  accountIcon = faUserCircle;
-  placements = NgxPopperjsPlacements;
-  triggers = NgxPopperjsTriggers;
-
-  constructor(private api: PocketbaseService) {}
+export class NavigationComponent {
+  constructor(
+    private api: PocketbaseService,
+    public navService: NavigationMenuService
+  ) {}
 
   get showNav() {
     return this.api.authStore.isValid;
   }
 
+  clickedInside = false;
+
   menuItems: MenuItem[] = [
     {
-      icon: faMap,
+      icon: 'bi bi-map',
       link: '/map',
+      text: 'Map',
     },
     {
-      icon: faMicrochip,
+      icon: 'bi bi-sim',
       link: '/devices',
+      text: 'Devices',
     },
   ];
 
-  ngOnInit(): void {}
+  @HostListener('click')
+  clickin() {
+    this.clickedInside = true;
+  }
+
+  @HostListener('document:click')
+  clickout() {
+    if (!this.clickedInside) {
+      this.navService.closeMenu();
+    }
+    this.clickedInside = false;
+  }
 
   userSignOut() {
     this.api.authStore.clear();

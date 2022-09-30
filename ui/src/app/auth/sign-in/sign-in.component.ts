@@ -12,6 +12,7 @@ import { PocketbaseService } from 'src/app/shared/services/pocketbase.service';
 })
 export class SignInComponent implements OnInit {
   form: FormGroup;
+  validationError?: string;
   constructor(
     fb: FormBuilder,
     private api: PocketbaseService,
@@ -52,6 +53,8 @@ export class SignInComponent implements OnInit {
       .then(() => {
         this.navigateAwayIfSignedIn();
       })
-      .catch(console.error);
+      .catch((error) => {
+        this.validationError = error.message;
+      });
   }
 }

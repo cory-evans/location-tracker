@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PocketbaseService } from 'src/app/shared/services/pocketbase.service';
-import { Device } from '../devices.models';
+import { Device } from 'src/app/shared/models';
 
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
