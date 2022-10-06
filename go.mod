@@ -1,4 +1,4 @@
-module github.com/cory-evans/pocketbase-app
+module github.com/cory-evans/location-tracker
 
 go 1.19
 

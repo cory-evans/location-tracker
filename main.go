@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/cory-evans/pocketbase-app/deviceauth"
-	"github.com/cory-evans/pocketbase-app/devicelocation"
+	"github.com/cory-evans/location-tracker/deviceauth"
+	"github.com/cory-evans/location-tracker/devicelocation"
 
 	"github.com/labstack/echo/v5"
 	"github.com/pocketbase/dbx"
