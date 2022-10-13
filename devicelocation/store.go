@@ -1,11 +1,11 @@
 package devicelocation
 
 import (
-	"encoding/json"
+	"encoding/base64"
+	"errors"
 	"fmt"
 	"net/http"
 
-	"github.com/cory-evans/location-tracker/deviceauth"
 	"github.com/labstack/echo/v5"
 	"github.com/pocketbase/pocketbase/core"
 	"github.com/pocketbase/pocketbase/models"
@@ -35,10 +35,31 @@ func CreateStoreLocationRoute(app core.App, path string) echo.Route {
 		Method: http.MethodPost,
 		Path:   path,
 		Handler: func(c echo.Context) error {
-			device, _ := c.Get(deviceauth.ContextDeviceKey).(*models.Record)
+			tokenId, ok := c.Request().Header["Authorization"]
+			if !ok || len(tokenId) == 0 {
+				return errors.New("token")
+			}
 
-			jsonBody := &Location{}
-			err := json.NewDecoder(c.Request().Body).Decode(&jsonBody)
+			tokenColl, err := app.Dao().FindCollectionByNameOrId("device_tokens")
+			if err != nil {
+				return err
+			}
+
+			tokenRecord, err := app.Dao().FindRecordById(tokenColl, tokenId[0], nil)
+			if err != nil {
+				return err
+			}
+
+			key := tokenRecord.GetStringDataValue("key")
+			deviceId := tokenRecord.GetStringDataValue("device")
+
+			keyAsBytes := make([]byte, 16)
+			_, err = base64.StdEncoding.Decode(keyAsBytes, []byte(key))
+			if err != nil {
+				return err
+			}
+
+			jsonBody, err := DecodeRequestBody(keyAsBytes, c.Request().Body)
 			if err != nil {
 				return err
 			}
@@ -49,7 +70,7 @@ func CreateStoreLocationRoute(app core.App, path string) echo.Route {
 			}
 
 			r := models.NewRecord(coll)
-			r.SetDataValue("device", device.Id)
+			r.SetDataValue("device", deviceId)
 			r.SetDataValue("lat", jsonBody.Lat)
 			r.SetDataValue("lon", jsonBody.Lon)
 			r.SetDataValue("acc", jsonBody.Acc)
@@ -62,9 +83,6 @@ func CreateStoreLocationRoute(app core.App, path string) echo.Route {
 			}
 
 			return c.JSON(http.StatusOK, r)
-		},
-		Middlewares: []echo.MiddlewareFunc{
-			deviceauth.RequireDeviceAuth(),
 		},
 	}
 }
