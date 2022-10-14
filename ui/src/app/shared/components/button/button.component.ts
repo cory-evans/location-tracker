@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
 const VARIANTS = {
   primary:
@@ -22,7 +21,7 @@ export class ButtonComponent implements OnInit {
   @Input() variant: keyof typeof VARIANTS = 'primary';
   @Input() size: keyof typeof SIZES = 'md';
   @Input() text?: string;
-  @Input() icon?: IconDefinition;
+  @Input() icon?: string;
 
   @Input() type: 'button' | 'menu' | 'submit' | 'reset' = 'button';
 

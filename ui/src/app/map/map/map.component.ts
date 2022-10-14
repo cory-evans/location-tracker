@@ -37,8 +37,17 @@ export class MapComponent implements OnInit {
               filter: `device = '${device.id}'`,
             })
             .then((data) => {
-              this.locations[device.id] = data.items as Location[];
-              data.items.forEach((item) => {
+              return data.items as Location[];
+            })
+            .then((items) => {
+              return items.map((i) => {
+                i.created = i.created + 'Z';
+                return i;
+              });
+            })
+            .then((items) => {
+              this.locations[device.id] = items;
+              items.forEach((item) => {
                 const l = item as Location;
                 this.markers.push(
                   marker([l.lat, l.lon], {
@@ -55,6 +64,12 @@ export class MapComponent implements OnInit {
             });
         }
       });
+  }
+
+  getLatestLocation(d: Device) {
+    if (!this.locations[d.id] || !this.locations[d.id].length) return null;
+
+    return this.locations[d.id][0];
   }
 
   markers: Marker[] = [];

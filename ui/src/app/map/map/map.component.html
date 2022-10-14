@@ -38,6 +38,9 @@
         (click)="goto(d)"
       >
         <h1>{{ d.name }}</h1>
+        <div *ngIf="locations[d.id]">
+          {{ getLatestLocation(d)?.created | date: "E d LLL h:mm a" }}
+        </div>
       </li>
     </ul>
   </div>

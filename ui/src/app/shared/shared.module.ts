@@ -6,19 +6,12 @@ import { RouterModule } from '@angular/router';
 import { NgxPopperjsModule } from 'ngx-popperjs';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonComponent } from './components/button/button.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [NavigationComponent, ButtonComponent, SidebarComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule,
-    FontAwesomeModule,
-    NgxPopperjsModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, NgxPopperjsModule],
   exports: [
     CommonModule,
     FormsModule,

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PocketbaseService } from 'src/app/shared/services/pocketbase.service';
 import { Device } from 'src/app/shared/models';
 
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -12,7 +10,6 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
   },
 })
 export class ListComponent implements OnInit {
-  deleteIcon = faTrashCan;
   constructor(private api: PocketbaseService) {}
 
   devices: Device[] = [];
