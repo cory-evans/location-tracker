@@ -9,7 +9,6 @@ COPY go.sum ./
 
 RUN go mod download
 
-COPY deviceauth ./deviceauth/
 COPY devicelocation ./devicelocation/
 
 COPY main.go ./
