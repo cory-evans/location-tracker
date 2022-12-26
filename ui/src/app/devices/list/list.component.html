@@ -1,6 +1,7 @@
 <div class="p-4 sm:max-w-4xl sm:mx-auto">
-  <h2 class="text-xl text-center font-semibold my-2">Devices</h2>
+  <h2 class="text-xl text-center font-semibold my-2">My Devices</h2>
   <div>
+    <app-button text="Refresh" (click)="listDevices()"></app-button>
     <ul class="flex flex-col space-y-2">
       <li
         class="bg-white rounded shadow p-4 text-gray-600"

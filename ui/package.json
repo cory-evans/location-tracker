@@ -26,7 +26,7 @@
     "leaflet": "^1.9.0",
     "nanoid": "^4.0.0",
     "ngx-popperjs": "^14.1.1",
-    "pocketbase": "^0.7.0",
+    "pocketbase": "^0.9.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

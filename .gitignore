@@ -2,4 +2,5 @@ pb_data/
 
 __debug_bin
 
-bin/
+bin/*
+!bin/migrations

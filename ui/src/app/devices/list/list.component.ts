@@ -19,9 +19,11 @@ export class ListComponent implements OnInit {
   }
 
   listDevices() {
-    this.api.records
-      .getList('device')
-      .then((resp) => (this.devices = resp.items as Device[]));
+    this.api.devices
+      .getFullList<Device>(undefined, {
+        filter: `owner = "${this.api.myid}"`
+      })
+      .then((resp) => (this.devices = resp))
   }
 
   getToken(device: Device) {
@@ -29,8 +31,8 @@ export class ListComponent implements OnInit {
   }
 
   deleteDevice(device: Device) {
-    this.api.records.delete('device', device.id).then((r) => {
-      this.listDevices();
-    });
+    this.api.devices.delete(device.id).then(() => {
+      this.listDevices()
+    })
   }
 }

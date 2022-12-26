@@ -49,7 +49,7 @@ export class SignInComponent implements OnInit {
     const password = this.form.get('password')!.value;
 
     this.api.users
-      .authViaEmail(email, password)
+      .authWithPassword(email, password)
       .then(() => {
         this.navigateAwayIfSignedIn();
       })

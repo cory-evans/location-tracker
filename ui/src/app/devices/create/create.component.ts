@@ -33,8 +33,8 @@ export class CreateComponent implements OnInit {
       name: name,
     };
 
-    this.api.records
-      .create('device', device)
+    this.api.devices
+      .create(device)
       .then((r) => {
         console.log(r);
       })

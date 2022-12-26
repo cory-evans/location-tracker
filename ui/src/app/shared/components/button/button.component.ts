@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 
 const VARIANTS = {
   primary:
@@ -16,6 +16,9 @@ const SIZES = {
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
+  host: {
+    role: 'button'
+  }
 })
 export class ButtonComponent implements OnInit {
   @Input() variant: keyof typeof VARIANTS = 'primary';
@@ -23,14 +26,16 @@ export class ButtonComponent implements OnInit {
   @Input() text?: string;
   @Input() icon?: string;
 
+  @HostBinding('type')
   @Input() type: 'button' | 'menu' | 'submit' | 'reset' = 'button';
 
-  @Output() click = new EventEmitter<MouseEvent>();
-
+  
   constructor() {}
-
+  
   ngOnInit(): void {}
 
+  
+  @HostBinding('class')
   get btnClass() {
     return (
       'transition-colors border ' +

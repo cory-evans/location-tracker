@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import Pocketbase from 'pocketbase';
 import { environment } from 'src/environments/environment';
 
@@ -12,16 +11,24 @@ export class PocketbaseService {
     this.client = new Pocketbase(environment.pocketbase);
   }
 
-  get records() {
-    return this.client.records;
+  get locations() {
+    return this.client.collection('locations');
+  }
+
+  get devices() {
+    return this.client.collection('device');
   }
 
   get users() {
-    return this.client.users;
+    return this.client.collection('users');
   }
 
   get authStore() {
     return this.client.authStore;
+  }
+
+  get myid() {
+    return this.client.authStore.model?.id || ''
   }
 
   createDeviceToken(deviceId: string) {

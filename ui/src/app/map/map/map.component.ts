@@ -22,17 +22,16 @@ export class MapComponent implements OnInit {
   bottomMenuHidden = true;
 
   ngOnInit(): void {
-    this.api.records
-      .getList('device')
+    this.api.devices
+      .getFullList()
       .then((devices) => {
-        return devices.items as Device[];
+        return devices as Device[];
       })
       .then(async (devices) => {
         this.devices = devices;
         for (let i = 0; i < devices.length; i++) {
           const device = devices[i];
-          await this.api.records
-            .getList('locations', 1, 5, {
+          await this.api.locations.getList(1, 5, {
               sort: '-created',
               filter: `device = '${device.id}'`,
             })

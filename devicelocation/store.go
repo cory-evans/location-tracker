@@ -40,18 +40,13 @@ func CreateStoreLocationRoute(app core.App, path string) echo.Route {
 				return errors.New("token")
 			}
 
-			tokenColl, err := app.Dao().FindCollectionByNameOrId("device_tokens")
+			tokenRecord, err := app.Dao().FindRecordById("device_tokens", tokenId[0], nil)
 			if err != nil {
 				return err
 			}
 
-			tokenRecord, err := app.Dao().FindRecordById(tokenColl, tokenId[0], nil)
-			if err != nil {
-				return err
-			}
-
-			key := tokenRecord.GetStringDataValue("key")
-			deviceId := tokenRecord.GetStringDataValue("device")
+			key := tokenRecord.GetString("key")
+			deviceId := tokenRecord.GetString("device")
 
 			keyAsBytes := make([]byte, 16)
 			_, err = base64.StdEncoding.Decode(keyAsBytes, []byte(key))
@@ -70,12 +65,12 @@ func CreateStoreLocationRoute(app core.App, path string) echo.Route {
 			}
 
 			r := models.NewRecord(coll)
-			r.SetDataValue("device", deviceId)
-			r.SetDataValue("lat", jsonBody.Lat)
-			r.SetDataValue("lon", jsonBody.Lon)
-			r.SetDataValue("acc", jsonBody.Acc)
-			r.SetDataValue("speed", jsonBody.Speed)
-			r.SetDataValue("timestamp", jsonBody.GetTimestampAsISO())
+			r.Set("device", deviceId)
+			r.Set("lat", jsonBody.Lat)
+			r.Set("lon", jsonBody.Lon)
+			r.Set("acc", jsonBody.Acc)
+			r.Set("speed", jsonBody.Speed)
+			r.Set("timestamp", jsonBody.GetTimestampAsISO())
 
 			err = app.Dao().SaveRecord(r)
 			if err != nil {
