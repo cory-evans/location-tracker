@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mosquitto:
+    build: mqtt
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./mqtt/mosquitto.conf:/etc/mosquitto/mosquitto.conf
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+
+  api:
+    build:
+      context: .
+      args:
+        - TARGETARCH=amd64
+        - BUILDPLATFORM=linux/amd64
+        - TARGETPLATFORM=linux/amd64
+    restart: unless-stopped
+    ports:
+      - 8090:8090
+    volumes:
+      - ./bin/pb_data:/pb_data
+      - ./bin/migrations:/migrations
+      - ./bin/litestream.yml:/etc/litestream.yml

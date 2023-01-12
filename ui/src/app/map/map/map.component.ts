@@ -39,12 +39,6 @@ export class MapComponent implements OnInit {
               return data.items as Location[];
             })
             .then((items) => {
-              return items.map((i) => {
-                i.created = i.created + 'Z';
-                return i;
-              });
-            })
-            .then((items) => {
               this.locations[device.id] = items;
               items.forEach((item) => {
                 const l = item as Location;

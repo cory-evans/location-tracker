@@ -37,6 +37,7 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.form.invalid)
     if (this.form.invalid) {
       Object.entries(this.form.controls).forEach(([key, control]) => {
         control.markAsDirty();

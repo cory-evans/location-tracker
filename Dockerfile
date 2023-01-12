@@ -1,6 +1,6 @@
-FROM --platform=$BUILDPLATFORM golang:1.19 as builder
 ARG TARGETARCH
 ARG BUILDPLATFORM
+FROM golang:1.19 as builder
 
 WORKDIR /app
 
@@ -9,11 +9,11 @@ COPY go.sum ./
 
 RUN go mod download
 
-COPY devicelocation ./devicelocation/
+COPY internal ./internal/
 
 COPY main.go ./
 
-RUN GOOS=linux GOARCH=$TARGETARCH go build -o /server main.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH go build -o /server main.go
 
 FROM alpine as runner
 

@@ -8,6 +8,8 @@ import (
 	"github.com/pocketbase/pocketbase/core"
 	"github.com/pocketbase/pocketbase/forms"
 	"github.com/pocketbase/pocketbase/models"
+
+	"github.com/cory-evans/location-tracker/internal/util"
 )
 
 func CreateDeviceTokenRoute(app core.App, path string) echo.Route {
@@ -37,7 +39,7 @@ func CreateDeviceTokenRoute(app core.App, path string) echo.Route {
 				record = models.NewRecord(coll)
 			}
 
-			token, err := GenerateRandomStringURLSafe(64)
+			token, err := util.GenerateRandomStringURLSafe(64)
 			if err != nil {
 				return err
 			}
